@@ -6,12 +6,19 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CountdownTimerApp",
+            "request": "launch",
+            "mainClass": "tests.CountdownTimerApp",
+            "projectName": "interval_timer_5e852eac",
+            "vmArgs": "--module-path \"C:/Program Files/javafx-sdk-22.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
             "name": "MainTime",
             "request": "launch",
             "mainClass": "src.MainTime",
             "projectName": "interval_timer_5e852eac",
             "vmArgs": "--module-path \"C:/Program Files/javafx-sdk-22.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
-
         },
         {
             "type": "java",
