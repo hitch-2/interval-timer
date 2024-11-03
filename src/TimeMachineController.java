@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Timer;
@@ -22,16 +23,15 @@ public class TimeMachineController extends Application {
     private Button startButton, stopButton, resetButton;
 
     @FXML
-    private Label timerLabel, timerLabel1, timerLabel2, notificationLabel;
+    private Label timerLabel1, timerLabel2, notificationLabel;
 
     @FXML
-    private TextField MinuteInput, SecondInput;
+    private TextField MinuteInput, SecondInput, MinuteInput1, SecondInput1, MinuteInput2, SecondInput2;
 
     private Queue<Integer> intervalQueue = new LinkedList<>();
     private Timer timer;
     private boolean isTimerRunning = false;
     private int timeRemaining;
-    private static final int MAX_INTERVALS = 3;  // Лимит на количество таймеров
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -49,6 +49,7 @@ public class TimeMachineController extends Application {
         try {
             int intervalDuration = 0;
 
+            // Считываем значения из первого таймера
             if (!MinuteInput.getText().isEmpty()) {
                 int minutes = Integer.parseInt(MinuteInput.getText());
                 intervalDuration += minutes * 60;
@@ -59,22 +60,27 @@ public class TimeMachineController extends Application {
                 intervalDuration += seconds;
             }
 
-            if (intervalDuration <= 0) {
-                showNotification("Введите положительное время!");
-                return;
-            }
-
-            if (intervalQueue.size() >= MAX_INTERVALS) {
-                showNotification("Превышен лимит очереди!");
-                return;
-            }
-
-            if (isTimerRunning) {
+            // Если введено время, добавляем в очередь
+            if (intervalDuration > 0) {
                 intervalQueue.add(intervalDuration);
                 showNotification("Таймер добавлен в очередь.");
-                updateWaitingTimers();
-            } else {
-                startNewTimer(intervalDuration);
+            }
+
+            // Считываем значения из второго таймера
+            int intervalDuration1 = getIntervalDuration(MinuteInput1, SecondInput1);
+            if (intervalDuration1 > 0) {
+                intervalQueue.add(intervalDuration1);
+            }
+
+            // Считываем значения из третьего таймера
+            int intervalDuration2 = getIntervalDuration(MinuteInput2, SecondInput2);
+            if (intervalDuration2 > 0) {
+                intervalQueue.add(intervalDuration2);
+            }
+
+            // Если таймер не запущен, запускаем первый из очереди
+            if (!isTimerRunning) {
+                startNextTimer();
             }
 
         } catch (NumberFormatException e) {
@@ -82,55 +88,53 @@ public class TimeMachineController extends Application {
         }   
     }
 
-    private void startNewTimer(int durationInSeconds) {
-        timeRemaining = durationInSeconds;
-        isTimerRunning = true;
-        updateTimerLabel(timeRemaining);
-
-        timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (timeRemaining > 0) {
-                    Platform.runLater(() -> updateTimerLabel(timeRemaining));
-                    timeRemaining--;
-                } else {
-                    timer.cancel();
-                    isTimerRunning = false;
-
-                    Platform.runLater(() -> {
-                        showNotification("Таймер завершен!");
-                        checkNextInterval();
-                    });
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 1000);
+    private int getIntervalDuration(TextField minuteInput, TextField secondInput) {
+        int duration = 0;
+        if (!minuteInput.getText().isEmpty()) {
+            int minutes = Integer.parseInt(minuteInput.getText());
+            duration += minutes * 60;
+        }
+        if (!secondInput.getText().isEmpty()) {
+            int seconds = Integer.parseInt(secondInput.getText());
+            duration += seconds;
+        }
+        return duration;
     }
 
-    private void checkNextInterval() {
+    private void startNextTimer() {
         if (!intervalQueue.isEmpty()) {
-            int nextInterval = intervalQueue.poll();
-            startNewTimer(nextInterval);
-            updateWaitingTimers();
+            timeRemaining = intervalQueue.poll(); // Получаем таймер из очереди
+            isTimerRunning = true;
+            updateTimerLabel(timeRemaining); // Обновляем текущее время в текстовом поле
+
+            timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    if (timeRemaining > 0) {
+                        Platform.runLater(() -> {
+                            timeRemaining--; // Уменьшаем время
+                            updateTimerLabel(timeRemaining); // Обновляем текстовое поле
+                        });
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        timer.cancel();
+                        isTimerRunning = false;
+
+                        Platform.runLater(() -> {
+                            showNotification("Таймер завершен!");
+                            startNextTimer(); // Запускаем следующий таймер
+                        });
+                    }
+                }
+            };
+            timer.scheduleAtFixedRate(task, 0, 1000);
         } else {
             showNotification("Все таймеры завершены!");
-        }
-    }
-
-    private void updateWaitingTimers() {
-        // Отображает статусы двух ожидающих таймеров
-        Integer[] nextTimers = intervalQueue.toArray(new Integer[0]);
-        if (nextTimers.length > 0) {
-            updateTimerLabel1(nextTimers[0]);
-        } else {
-            timerLabel1.setText("00:00");
-        }
-
-        if (nextTimers.length > 1) {
-            updateTimerLabel2(nextTimers[1]);
-        } else {
-            timerLabel2.setText("00:00");
         }
     }
 
@@ -150,29 +154,23 @@ public class TimeMachineController extends Application {
             isTimerRunning = false;
         }
         timeRemaining = 0;
-        timerLabel.setText("00:00");
+        updateTimerLabel(timeRemaining); // Обнуляем текстовое поле
         MinuteInput.clear();
         SecondInput.clear();
+        MinuteInput1.clear();
+        SecondInput1.clear();
+        MinuteInput2.clear();
+        SecondInput2.clear();
         notificationLabel.setText("");
-        checkNextInterval();
+        intervalQueue.clear(); // Очищаем очередь
     }
 
     private void updateTimerLabel(int timeRemaining) {
         int minutes = timeRemaining / 60;
         int seconds = timeRemaining % 60;
-        timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
-    }
-
-    private void updateTimerLabel1(int timeRemaining) {
-        int minutes = timeRemaining / 60;
-        int seconds = timeRemaining % 60;
-        timerLabel1.setText(String.format("%02d:%02d", minutes, seconds));
-    }
-
-    private void updateTimerLabel2(int timeRemaining) {
-        int minutes = timeRemaining / 60;
-        int seconds = timeRemaining % 60;
-        timerLabel2.setText(String.format("%02d:%02d", minutes, seconds));
+        String formattedTime = String.format("%02d:%02d", minutes, seconds);
+        MinuteInput.setText(String.valueOf(minutes)); // Отображаем оставшиеся минуты
+        SecondInput.setText(String.valueOf(seconds)); // Отображаем оставшиеся секунды
     }
 
     private void showNotification(String message) {

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TimeMachineController",
+            "request": "launch",
+            "mainClass": "src.TimeMachineController",
+            "projectName": "interval_timer_5e852eac"
+        },
+        {
+            "type": "java",
             "name": "TimerApp",
             "request": "launch",
             "mainClass": "tests.TimerApp",
