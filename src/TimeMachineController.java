@@ -23,7 +23,7 @@ public class TimeMachineController extends Application {
     private Button startButton, stopButton, resetButton;
 
     @FXML
-    private Label timerLabel1, timerLabel2, notificationLabel;
+    private Label timerLabel1, notificationLabel;
 
     @FXML
     private TextField MinuteInput, SecondInput, MinuteInput1, SecondInput1, MinuteInput2, SecondInput2;
@@ -127,7 +127,34 @@ public class TimeMachineController extends Application {
 
                         Platform.runLater(() -> {
                             showNotification("Таймер завершен!");
-                            startNextTimer(); // Запускаем следующий таймер
+                            if (intervalQueue.isEmpty()) {
+                                // Если нет следующего таймера, очищаем все поля
+                                clearTimerInputs();
+                            } else if(intervalQueue.size() == 1){
+                                showNotification("бля 1");
+                                startNextTimer();
+
+                                MinuteInput1.clear();
+                                SecondInput1.clear();
+
+                            } else if (intervalQueue.size() == 2) {
+                                showNotification("бля ну 2");
+                                startNextTimer();
+                                
+                                // Перемещаем значения из третьего поля во второе
+                                MinuteInput1.setText(MinuteInput2.getText());
+                                SecondInput1.setText(SecondInput2.getText());
+                                
+                                // Очищаем третье поле
+                                MinuteInput2.clear();
+                                SecondInput2.clear();
+                            }
+                            
+                            
+                            else {
+                                // Запускаем следующий таймер
+                                startNextTimer();
+                            }
                         });
                     }
                 }
@@ -136,6 +163,15 @@ public class TimeMachineController extends Application {
         } else {
             showNotification("Все таймеры завершены!");
         }
+    }
+
+    private void clearTimerInputs() {
+        MinuteInput.clear();
+        SecondInput.clear();
+        MinuteInput1.clear();
+        SecondInput1.clear();
+        MinuteInput2.clear();
+        SecondInput2.clear();
     }
 
     @FXML
@@ -155,12 +191,7 @@ public class TimeMachineController extends Application {
         }
         timeRemaining = 0;
         updateTimerLabel(timeRemaining); // Обнуляем текстовое поле
-        MinuteInput.clear();
-        SecondInput.clear();
-        MinuteInput1.clear();
-        SecondInput1.clear();
-        MinuteInput2.clear();
-        SecondInput2.clear();
+        clearTimerInputs(); // Очищаем все поля ввода
         notificationLabel.setText("");
         intervalQueue.clear(); // Очищаем очередь
     }
