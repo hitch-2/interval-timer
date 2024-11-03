@@ -7,16 +7,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class CountdownTimerController {
+public class TimerController {
 
     @FXML
     private TextField timeField;
+
+    @FXML
+    private TextField secondField;
 
     @FXML
     private Button startButton;
 
     private Timeline timeline;
     private int secondsRemaining;
+
+    @FXML
+    public void initialize() {
+        // Добавляем обработчик события для перехода к следующему полю по нажатию Enter
+        timeField.setOnAction(event -> secondField.requestFocus());
+    }
 
     @FXML
     private void onStartButtonClicked() {

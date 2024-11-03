@@ -79,7 +79,7 @@ public class TimeMachineController extends Application {
 
         } catch (NumberFormatException e) {
             showNotification("Некорректный ввод! Введите число.");
-        }
+        }   
     }
 
     private void startNewTimer(int durationInSeconds) {
@@ -114,7 +114,6 @@ public class TimeMachineController extends Application {
             startNewTimer(nextInterval);
             updateWaitingTimers();
         } else {
-            resetTimer(null);
             showNotification("Все таймеры завершены!");
         }
     }
@@ -141,8 +140,6 @@ public class TimeMachineController extends Application {
             timer.cancel();
             isTimerRunning = false;
             showNotification("Таймер остановлен!");
-            intervalQueue.clear();
-            updateWaitingTimers();
         }
     }
 
@@ -154,12 +151,10 @@ public class TimeMachineController extends Application {
         }
         timeRemaining = 0;
         timerLabel.setText("00:00");
-        timerLabel1.setText("00:00");
-        timerLabel2.setText("00:00");
         MinuteInput.clear();
         SecondInput.clear();
         notificationLabel.setText("");
-        intervalQueue.clear();
+        checkNextInterval();
     }
 
     private void updateTimerLabel(int timeRemaining) {

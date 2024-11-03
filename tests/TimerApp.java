@@ -5,11 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class CountdownTimerApp extends Application {
+public class TimerApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tests/контроллер.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tests/face.fxml"));
         Scene scene = new Scene(loader.load());
 
         primaryStage.setTitle("Таймер с обратным отсчетом");

@@ -6,14 +6,17 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-        fx:controller="tests.CountdownTimerController"
-        spacing="10" alignment="CENTER">
+      fx:controller="tests.TimerController"
+      spacing="10" alignment="CENTER">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
     
-    <!-- Поле для ввода времени -->
+    <!-- Первое поле для ввода времени -->
     <TextField fx:id="timeField" promptText="Введите время в формате MM:SS" />
+    
+    <!-- Второе поле -->
+    <TextField fx:id="secondField" promptText="Следующее поле" />
     
     <!-- Кнопка для запуска таймера -->
     <Button text="Старт" onAction="#onStartButtonClicked"/>
