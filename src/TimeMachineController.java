@@ -47,20 +47,21 @@ public class TimeMachineController extends Application {
     @FXML
     private void startTimer(ActionEvent event) {
         try {
-
-            // Считываем значения из первого таймера
-            getIntervalDuration(MinuteInput, SecondInput);
-           
-            // Считываем значения из второго таймера
-            getIntervalDuration(MinuteInput1, SecondInput1);
-            
-            // Считываем значения из третьего таймера
-            getIntervalDuration(MinuteInput2, SecondInput2);
-
-
             // Если таймер не запущен, запускаем первый из очереди
             if (!isTimerRunning) {
+                // Считываем значения из первого таймера
+                getIntervalDuration(MinuteInput, SecondInput);
+           
+                // Считываем значения из второго таймера
+                getIntervalDuration(MinuteInput1, SecondInput1);
+            
+                // Считываем значения из третьего таймера
+                getIntervalDuration(MinuteInput2, SecondInput2);
+
                 startNextTimer();
+            }
+            else {
+                showNotification("Таймер уже запущен");
             }
 
         } catch (NumberFormatException e) {
@@ -87,9 +88,8 @@ public class TimeMachineController extends Application {
 
     private void startNextTimer() {
         if (!intervalQueue.isEmpty()) {
-            timeRemaining = intervalQueue.poll(); // Получаем таймер из очереди
             isTimerRunning = true;
-            updateTimerLabel(timeRemaining); // Обновляем текущее время в текстовом поле
+            timeRemaining = intervalQueue.poll(); // Получаем таймер из очереди
 
             timer = new Timer();
             TimerTask task = new TimerTask() {
@@ -100,25 +100,24 @@ public class TimeMachineController extends Application {
                             timeRemaining--; // Уменьшаем время
                             updateTimerLabel(timeRemaining); // Обновляем текстовое поле
                         });
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+
                     } else {
                         timer.cancel();
                         isTimerRunning = false;
 
                         Platform.runLater(() -> {
-                            showNotification("Таймер завершен!");
                             if (intervalQueue.isEmpty()) {
                                 // Если нет следующего таймера, очищаем все поля
                                 clearTimerInputs();
+                                showNotification("Все таймеры завершены!");
+
                             } else if(intervalQueue.size() == 1){
                                 startNextTimer();
 
                                 MinuteInput1.clear();
                                 SecondInput1.clear();
+
+                                showNotification("Таймер завершен!");
 
                             } else if (intervalQueue.size() == 2) {
                                 startNextTimer();
@@ -132,7 +131,6 @@ public class TimeMachineController extends Application {
                                 SecondInput2.clear();
                             }
                             
-                            
                             else {
                                 // Запускаем следующий таймер
                                 startNextTimer();
@@ -141,9 +139,8 @@ public class TimeMachineController extends Application {
                     }
                 }
             };
+
             timer.scheduleAtFixedRate(task, 0, 1000);
-        } else {
-            showNotification("Все таймеры завершены!");
         }
     }
 
@@ -167,12 +164,9 @@ public class TimeMachineController extends Application {
 
     @FXML
     private void resetTimer(ActionEvent event) {
-        if (isTimerRunning) {
-            timer.cancel();
-            isTimerRunning = false;
-        }
+        timer.cancel();
+        isTimerRunning = false;
         timeRemaining = 0;
-        updateTimerLabel(timeRemaining); // Обнуляем текстовое поле
         clearTimerInputs(); // Очищаем все поля ввода
         notificationLabel.setText("");
         intervalQueue.clear(); // Очищаем очередь
@@ -192,7 +186,7 @@ public class TimeMachineController extends Application {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                showNotification("ощибка с выводом сообщений");
             }
             Platform.runLater(() -> notificationLabel.setText(""));
         }).start();
