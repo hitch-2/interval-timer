@@ -47,36 +47,16 @@ public class TimeMachineController extends Application {
     @FXML
     private void startTimer(ActionEvent event) {
         try {
-            int intervalDuration = 0;
 
             // Считываем значения из первого таймера
-            if (!MinuteInput.getText().isEmpty()) {
-                int minutes = Integer.parseInt(MinuteInput.getText());
-                intervalDuration += minutes * 60;
-            }
-
-            if (!SecondInput.getText().isEmpty()) {
-                int seconds = Integer.parseInt(SecondInput.getText());
-                intervalDuration += seconds;
-            }
-
-            // Если введено время, добавляем в очередь
-            if (intervalDuration > 0) {
-                intervalQueue.add(intervalDuration);
-                showNotification("Таймер добавлен в очередь.");
-            }
-
+            getIntervalDuration(MinuteInput, SecondInput);
+           
             // Считываем значения из второго таймера
-            int intervalDuration1 = getIntervalDuration(MinuteInput1, SecondInput1);
-            if (intervalDuration1 > 0) {
-                intervalQueue.add(intervalDuration1);
-            }
-
+            getIntervalDuration(MinuteInput1, SecondInput1);
+            
             // Считываем значения из третьего таймера
-            int intervalDuration2 = getIntervalDuration(MinuteInput2, SecondInput2);
-            if (intervalDuration2 > 0) {
-                intervalQueue.add(intervalDuration2);
-            }
+            getIntervalDuration(MinuteInput2, SecondInput2);
+
 
             // Если таймер не запущен, запускаем первый из очереди
             if (!isTimerRunning) {
@@ -98,6 +78,10 @@ public class TimeMachineController extends Application {
             int seconds = Integer.parseInt(secondInput.getText());
             duration += seconds;
         }
+        if (duration > 0) {
+            intervalQueue.add(duration);
+        }
+
         return duration;
     }
 
@@ -131,14 +115,12 @@ public class TimeMachineController extends Application {
                                 // Если нет следующего таймера, очищаем все поля
                                 clearTimerInputs();
                             } else if(intervalQueue.size() == 1){
-                                showNotification("бля 1");
                                 startNextTimer();
 
                                 MinuteInput1.clear();
                                 SecondInput1.clear();
 
                             } else if (intervalQueue.size() == 2) {
-                                showNotification("бля ну 2");
                                 startNextTimer();
                                 
                                 // Перемещаем значения из третьего поля во второе
