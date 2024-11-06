@@ -17,7 +17,14 @@ import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
+
 public class TimeMachineController extends Application {
+
+    @FXML
+    private AnchorPane rootPane;
 
     @FXML
     private Button startButton, stopButton, resetButton;
@@ -156,9 +163,9 @@ public class TimeMachineController extends Application {
     @FXML
     private void stopTimer(ActionEvent event) {
         if (isTimerRunning) {
-            timer.cancel();
+            timer.purge();
             isTimerRunning = false;
-            showNotification("Таймер остановлен!");
+            showNotification("Таймер остановлен!"); 
         }
     }
 
@@ -194,5 +201,10 @@ public class TimeMachineController extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void initialize() {
+        // Добавляем обработчик события для перехода к следующему полю по нажатию Enter
+        Platform.runLater(() -> rootPane.requestFocus());
     }
 }
