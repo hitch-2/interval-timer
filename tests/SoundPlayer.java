@@ -3,29 +3,20 @@ package tests;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.util.Scanner;
+import java.io.File;
 
 public class SoundPlayer {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Введите команду (1 для воспроизведения звука):");
-        
-        String input = scanner.nextLine();
-        
-        if ("1".equals(input)) {
-            playSound("sounds.set-timer-bell.wav"); // Замените "sound.wav" на путь к вашему звуковому файлу
-        } else {
-            System.out.println("Команда не распознана.");
-        }
-        
-        scanner.close();
+        // Укажите абсолютный путь к звуковому файлу
+        playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav");
     }
 
-    private static void playSound(String soundFile) {
+    private static void playSound(String soundFilePath) {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResource(soundFile));
+            // Используем абсолютный путь к файлу
+            File soundFile = new File(soundFilePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();

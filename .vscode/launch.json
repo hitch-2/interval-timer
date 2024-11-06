@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SoundPlayer",
+            "request": "launch",
+            "mainClass": "sounds.SoundPlayer",
+            "projectName": "interval_timer_5e852eac"
+        },
+        {
+            "type": "java",
+            "name": "SoundPlayer",
+            "request": "launch",
+            "mainClass": "tests.SoundPlayer",
+            "projectName": "interval_timer_5e852eac"
+        },
+        {
+            "type": "java",
             "name": "TimeMachineController",
             "request": "launch",
             "mainClass": "src.TimeMachineController",

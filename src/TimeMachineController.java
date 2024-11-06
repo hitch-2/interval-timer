@@ -17,9 +17,10 @@ import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 
 public class TimeMachineController extends Application {
 
@@ -117,6 +118,9 @@ public class TimeMachineController extends Application {
                                 // Если нет следующего таймера, очищаем все поля
                                 clearTimerInputs();
                                 showNotification("Все таймеры завершены!");
+                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav");
+                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell3.wav");
+
 
                             } else if(intervalQueue.size() == 1){
                                 startNextTimer();
@@ -125,6 +129,8 @@ public class TimeMachineController extends Application {
                                 SecondInput1.clear();
 
                                 showNotification("Таймер завершен!");
+                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav");
+
 
                             } else if (intervalQueue.size() == 2) {
                                 startNextTimer();
@@ -136,6 +142,11 @@ public class TimeMachineController extends Application {
                                 // Очищаем третье поле
                                 MinuteInput2.clear();
                                 SecondInput2.clear();
+
+                                showNotification("Таймер завершен!");
+                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav");
+
+
                             }
                             
                             else {
@@ -197,6 +208,22 @@ public class TimeMachineController extends Application {
             }
             Platform.runLater(() -> notificationLabel.setText(""));
         }).start();
+    }
+
+    private static void playSound(String soundFilePath) {
+        try {
+            // Используем абсолютный путь к файлу
+            File soundFile = new File(soundFilePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            
+            // Ждем, пока звук закончится
+            Thread.sleep(clip.getMicrosecondLength() / 1000);
+        } catch (Exception e) {
+            System.out.println("Ошибка воспроизведения звука: " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
