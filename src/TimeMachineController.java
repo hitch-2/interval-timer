@@ -118,8 +118,8 @@ public class TimeMachineController extends Application {
                                 // Если нет следующего таймера, очищаем все поля
                                 clearTimerInputs();
                                 showNotification("Все таймеры завершены!");
-                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav");
-                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell3.wav");
+                                playSound(1);
+                                playSound(2);
 
 
                             } else if(intervalQueue.size() == 1){
@@ -129,7 +129,7 @@ public class TimeMachineController extends Application {
                                 SecondInput1.clear();
 
                                 showNotification("Таймер завершен!");
-                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav");
+                                playSound(1);
 
 
                             } else if (intervalQueue.size() == 2) {
@@ -144,7 +144,7 @@ public class TimeMachineController extends Application {
                                 SecondInput2.clear();
 
                                 showNotification("Таймер завершен!");
-                                playSound("C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav");
+                                playSound(1);
 
 
                             }
@@ -173,18 +173,21 @@ public class TimeMachineController extends Application {
 
     @FXML
     private void stopTimer(ActionEvent event) {
-        if (isTimerRunning) {
-            timer.purge();
+        if(isTimerRunning) {
+            timer.cancel();
             isTimerRunning = false;
-            showNotification("Таймер остановлен!"); 
+            showNotification("Таймер остановлен!");
+            intervalQueue.clear();
         }
     }
 
     @FXML
     private void resetTimer(ActionEvent event) {
-        timer.cancel();
-        isTimerRunning = false;
-        timeRemaining = 0;
+        if(isTimerRunning) {
+            timer.cancel();
+            isTimerRunning = false;
+            timeRemaining = 0;
+        }
         clearTimerInputs(); // Очищаем все поля ввода
         notificationLabel.setText("");
         intervalQueue.clear(); // Очищаем очередь
@@ -210,10 +213,10 @@ public class TimeMachineController extends Application {
         }).start();
     }
 
-    private static void playSound(String soundFilePath) {
+    private static void playSound(int choose) {
         try {
             // Используем абсолютный путь к файлу
-            File soundFile = new File(soundFilePath);
+            File soundFile = new File((choose == 1) ? "C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav" : "C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell3.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
