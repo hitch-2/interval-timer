@@ -196,10 +196,16 @@ public class TimeMachineController extends Application {
     private void updateTimerLabel(int timeRemaining) {
         int minutes = timeRemaining / 60;
         int seconds = timeRemaining % 60;
-        String formattedTime = String.format("%02d:%02d", minutes, seconds);
-        MinuteInput.setText(String.valueOf(minutes)); // Отображаем оставшиеся минуты
-        SecondInput.setText(String.valueOf(seconds)); // Отображаем оставшиеся секунды
+    
+        // Форматируем каждую часть отдельно
+        String formattedMinutes = String.format("%02d", minutes);
+        String formattedSeconds = String.format("%02d", seconds);
+    
+        // Устанавливаем значения в поля
+        MinuteInput.setText(formattedMinutes); // Отображаем оставшиеся минуты
+        SecondInput.setText(formattedSeconds); // Отображаем оставшиеся секунды
     }
+    
 
     private void showNotification(String message) {
         notificationLabel.setText(message);
