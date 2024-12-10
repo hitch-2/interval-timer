@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tests.Controller">
+    <children>
+        <!-- Кнопка для открытия меню настроек -->
+        <Button fx:id="settingsButton" text="Настройки" layoutX="10" layoutY="10" />
+
+        <!-- Блок настроек -->
+        <VBox fx:id="settingsPane" layoutX="10" layoutY="50" spacing="10" prefWidth="200" style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: #f4f4f4;">
+            <children>
+                <Label text="Настройки" style="-fx-font-weight: bold;" />
+                <!-- Поле для ввода текста -->
+                <HBox spacing="5">
+                    <Label text="Имя:" />
+                    <TextField fx:id="usernameField" promptText="Введите имя пользователя" />
+                </HBox>
+                <!-- Переключатель для темного режима -->
+                <CheckBox fx:id="darkModeCheckBox" text="Тёмный режим" />
+                <!-- Кнопки для сохранения и закрытия -->
+                <HBox spacing="10">
+                    <Button fx:id="saveButton" text="Сохранить" />
+                    <Button fx:id="closeButton" text="Закрыть" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

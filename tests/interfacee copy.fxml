@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.TimeMachineController">
+   
+    <tabs>
+        <Tab text="Таймер">
+            <content>
+               <AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F5F5F5">
+                  
+                    <children>
+                        <TextField fx:id="MinuteInput" alignment="CENTER" layoutX="34.0" layoutY="34.0" prefHeight="0.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                        <TextField fx:id="SecondInput" alignment="CENTER" layoutX="106.0" layoutY="34.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="52.0" />
+                     </font></TextField>
+                        
+                        <Button fx:id="startButton" layoutX="39.0" layoutY="132.0" mnemonicParsing="false" onAction="#startTimer" style="-fx-background-color: #5BBFBA; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Старт" />
+                        <Button fx:id="stopButton" layoutX="101.0" layoutY="132.0" mnemonicParsing="false" onAction="#stopTimer" style="-fx-background-color: #E94E77; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Стоп" />
+                        <Button fx:id="resetButton" layoutX="161.0" layoutY="132.0" mnemonicParsing="false" onAction="#resetTimer" style="-fx-background-color: #F7C94C; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Сброс" />
+                        
+                        <!-- Указатели очереди ожидания -->
+                        <Label layoutX="181.0" layoutY="49.0" prefHeight="65.0" prefWidth="38.0" text="←" textFill="#7b848f">
+                            <font>
+                                <Font size="40.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="317.0" layoutY="52.0" prefHeight="0.0" prefWidth="43.0" text="←" textFill="#7b848f">
+                            <font>
+                                <Font size="40.0" />
+                            </font>
+                        </Label>
+                        
+                        <!-- Метка уведомлений -->
+                        <Label fx:id="notificationLabel" layoutX="37.0" layoutY="186.0" prefHeight="34.0" prefWidth="400.0" text="" textFill="red" />
+                  <Label fx:id="timerLabel11" alignment="CENTER" contentDisplay="CENTER" layoutX="103.0" layoutY="48.0" prefHeight="21.0" prefWidth="9.0" text=":" textFill="#7b848f">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="MinuteInput1" alignment="CENTER" layoutX="212.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="SecondInput1" alignment="CENTER" layoutX="266.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="timerLabel111" alignment="CENTER" contentDisplay="CENTER" layoutX="260.0" layoutY="54.0" prefHeight="58.0" prefWidth="0.0" text=":" textFill="#7b848f">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="MinuteInput3" alignment="CENTER" layoutX="347.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="SecondInput3" alignment="CENTER" layoutX="401.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="timerLabel112" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="54.0" prefHeight="58.0" prefWidth="0.0" text=":" textFill="#7b848f">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="settingsPane" layoutX="44.0" layoutY="304.0" prefWidth="200" spacing="10" style="-fx-border-color: gray; -fx-padding: 10; -fx-background-color: #f4f4f4;">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Настройки" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="settingsButton" layoutX="44.0" layoutY="208.0" text="Настройки" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="be soon">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField alignment="CENTER" layoutX="41.0" layoutY="62.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" layoutX="116.0" layoutY="62.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="52.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="75.0" prefHeight="21.0" prefWidth="9.0" text=":" textFill="#7b848f">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="41.0" layoutY="27.0" prefHeight="35.0" prefWidth="179.0" text=" рабочее время">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="259.0" layoutY="26.0" prefHeight="35.0" prefWidth="192.0" text=" время перерыва">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField alignment="CENTER" layoutX="259.0" layoutY="59.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" layoutX="334.0" layoutY="59.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="52.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="72.0" prefHeight="21.0" prefWidth="9.0" text=":" textFill="#7b848f">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="41.0" layoutY="176.0" prefHeight="35.0" prefWidth="179.0" text="кол-во циклов">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField alignment="CENTER" layoutX="41.0" layoutY="211.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                     <font>
+                        <Font size="52.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </content></Tab>
+    </tabs>
+</TabPane>
