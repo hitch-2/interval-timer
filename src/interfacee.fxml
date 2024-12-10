@@ -6,14 +6,15 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.TimeMachineController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="671.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.TimeMachineController">
    
     <tabs>
         <Tab text="Таймер">
             <content>
-               <AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F5F5F5">
+               <AnchorPane fx:id="rootPane" prefHeight="401.0" prefWidth="617.0" style="-fx-background-color: #F5F5F5">
                   
                     <children>
                         <TextField fx:id="MinuteInput" alignment="CENTER" layoutX="34.0" layoutY="34.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
@@ -78,10 +79,75 @@
                         <Font size="40.0" />
                      </font>
                   </Label>
+                  <Button fx:id="settingsButton" layoutX="231.0" layoutY="131.0" prefHeight="43.0" prefWidth="76.0" text="Настройки" />
+                  <Pane fx:id="settingsPane" layoutX="28.0" layoutY="226.0" prefHeight="282.0" prefWidth="409.0" style="-fx-background-color: #dedcdc;">
+                     <children>
+                        <Button fx:id="closeButton" layoutX="100.0" layoutY="237.0" prefHeight="25.0" prefWidth="73.0" text="Закрыть" />
+                        <TextField alignment="CENTER" layoutX="255.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                           <font>
+                              <Font size="52.0" />
+                           </font>
+                        </TextField>
+                        <TextField alignment="CENTER" layoutX="87.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                           <font>
+                              <Font size="52.0" />
+                           </font>
+                        </TextField>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="79.0" prefHeight="21.0" prefWidth="9.0" text=":" textFill="#7b848f">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                        <TextField alignment="CENTER" layoutX="11.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </TextField>
+                        <TextField alignment="CENTER" layoutX="179.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                           <font>
+                              <Font size="52.0" />
+                           </font>
+                        </TextField>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="79.0" prefHeight="21.0" prefWidth="9.0" text=":" textFill="#7b848f">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="1.0" prefHeight="48.0" prefWidth="409.0" style="-fx-font-weight: bold; -fx-background-color: #cfcccc;" text="  Быстрые настройки">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="187.0" layoutY="59.0" prefHeight="15.0" prefWidth="113.0" text=" время перерыва">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="16.0" layoutY="59.0" prefHeight="16.0" prefWidth="102.0" text=" рабочее время">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="saveButton" layoutX="19.0" layoutY="237.0" text="Сохранить" />
+                        <TextField alignment="CENTER" layoutX="11.0" layoutY="151.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </TextField>
+                        <Label alignment="CENTER" layoutX="16.0" layoutY="140.0" prefHeight="16.0" prefWidth="102.0" text="кол-во циклов">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                     </children>
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab text="be soon" />
+         <Tab text="be soon">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+         </content></Tab>        
     </tabs>
 </TabPane>

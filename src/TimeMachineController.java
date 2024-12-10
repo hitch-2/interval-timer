@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
@@ -24,11 +25,15 @@ import java.io.File;
 
 public class TimeMachineController extends Application {
 
+
+    @FXML
+    private Pane settingsPane;
+
     @FXML
     private AnchorPane rootPane;
 
     @FXML
-    private Button startButton, stopButton, resetButton;
+    private Button startButton, stopButton, resetButton, closeButton, saveButton, settingsButton;
 
     @FXML
     private Label timerLabel1, notificationLabel;
@@ -222,7 +227,7 @@ public class TimeMachineController extends Application {
     private static void playSound(int choose) {
         try {
             // Используем абсолютный путь к файлу
-            File soundFile = new File((choose == 1) ? "C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell.wav" : "C:\\Users\\Асус\\AppData\\Local\\Programs\\Python\\1main\\interval_timer\\sounds\\set-timer-bell3.wav");
+            File soundFile = new File((choose == 1) ? "sounds\\set-timer-bell.wav" : "sounds\\set-timer-bell3.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
@@ -239,8 +244,26 @@ public class TimeMachineController extends Application {
         launch(args);
     }
 
+    @FXML
     public void initialize() {
-        // Добавляем обработчик события для перехода к следующему полю по нажатию Enter
+        // Изначально блок настроек скрыт
+        settingsPane.setVisible(false);
+
+        // Открытие блока настроек
+        settingsButton.setOnAction(event -> settingsPane.setVisible(true));
+
+        // Сохранение настроек
+        saveButton.setOnAction(event -> {
+
+            // Логика сохранения (здесь только вывод в консоль)
+            System.out.println("Сохранено:");
+
+            // Скрываем блок после сохранения
+            settingsPane.setVisible(false);
+        });
+
+        // Закрытие меню настроек без сохранения
+        closeButton.setOnAction(event -> settingsPane.setVisible(false));
         Platform.runLater(() -> rootPane.requestFocus());
     }
 }

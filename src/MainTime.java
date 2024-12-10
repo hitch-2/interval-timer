@@ -17,7 +17,7 @@ public class MainTime extends Application {
         primaryStage.setTitle("JavaFX App");
 
         // Создаем сцену
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 700, 600);
 
         // Устанавливаем сцену на окно
         primaryStage.setScene(scene);

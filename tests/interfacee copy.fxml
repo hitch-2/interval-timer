@@ -93,62 +93,6 @@
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab text="be soon">
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TextField alignment="CENTER" layoutX="41.0" layoutY="62.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <TextField alignment="CENTER" layoutX="116.0" layoutY="62.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
-                     <font>
-                        <Font size="52.0" />
-                     </font>
-                  </TextField>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="75.0" prefHeight="21.0" prefWidth="9.0" text=":" textFill="#7b848f">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="41.0" layoutY="27.0" prefHeight="35.0" prefWidth="179.0" text=" рабочее время">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="259.0" layoutY="26.0" prefHeight="35.0" prefWidth="192.0" text=" время перерыва">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField alignment="CENTER" layoutX="259.0" layoutY="59.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <TextField alignment="CENTER" layoutX="334.0" layoutY="59.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
-                     <font>
-                        <Font size="52.0" />
-                     </font>
-                  </TextField>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="72.0" prefHeight="21.0" prefWidth="9.0" text=":" textFill="#7b848f">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="41.0" layoutY="176.0" prefHeight="35.0" prefWidth="179.0" text="кол-во циклов">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField alignment="CENTER" layoutX="41.0" layoutY="211.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
-                     <font>
-                        <Font size="52.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-         </content></Tab>
+        
     </tabs>
 </TabPane>
