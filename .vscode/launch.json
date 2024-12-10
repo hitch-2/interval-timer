@@ -9,7 +9,9 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "tests.Main",
-            "projectName": "interval-timer_97d3938"
+            "projectName": "interval-timer_97d3938",
+            "vmArgs": "--module-path \"C:/Program Files/javafx-sdk-23.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+
         },
         {
             "type": "java",
