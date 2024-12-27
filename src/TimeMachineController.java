@@ -74,7 +74,8 @@ public class TimeMachineController extends Application {
                 startNextTimer();
             }
             else {
-                showNotification("Таймер уже запущен");
+                switchToStart();
+                stopTimer(event);
             }
 
         } catch (NumberFormatException e) {
@@ -103,6 +104,8 @@ public class TimeMachineController extends Application {
         if (!intervalQueue.isEmpty()) {
             isTimerRunning = true;
             timeRemaining = intervalQueue.poll(); // Получаем таймер из очереди
+
+            switchToStop();
 
             timer = new Timer();
             TimerTask task = new TimerTask() {
@@ -174,6 +177,36 @@ public class TimeMachineController extends Application {
         SecondInput1.clear();
         MinuteInput2.clear();
         SecondInput2.clear();
+    }
+
+    private void switchToStop() {
+
+        startButton.setStyle(
+            "-fx-background-color: #E94E77; " +  // Фон
+            "-fx-text-fill: white; " +           // Цвет текста
+            "-fx-font-size: 14px; " +            // Размер текста
+            "-fx-min-width: 56px; " +            // Минимальная ширина
+            "-fx-min-height: 40px; " +           // Минимальная высота
+            "-fx-border-radius: 5px; " +         // Закругление границы
+            "-fx-background-radius: 5px;"        // Закругление фона
+        );
+        
+        startButton.setText("Стоп");
+    }
+    
+    private void switchToStart() {
+
+        startButton.setStyle(
+            "-fx-background-color:  #5BBFBA;" +  // Фон кнопки
+            "-fx-text-fill: white; " +           // Цвет текста
+            "-fx-font-size: 14px; " +            // Размер текста
+            "-fx-padding: 10px; " +              // Внутренние отступы
+            "-fx-border-radius: 5px; " +         // Радиус границы
+            "-fx-background-radius: 5px;"        // Радиус фона
+        );
+
+        startButton.setText("Старт");
+
     }
 
     @FXML

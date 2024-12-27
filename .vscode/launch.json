@@ -6,6 +6,15 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ToggleButtonExample",
+            "request": "launch",
+            "mainClass": "tests.ToggleButtonExample",
+            "projectName": "interval-timer_97d3938",
+            "vmArgs": "--module-path \"C:/Program Files/javafx-sdk-23.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+
+        },
+        {
+            "type": "java",
             "name": "TimeMachineController",
             "request": "launch",
             "mainClass": "src.TimeMachineController",
