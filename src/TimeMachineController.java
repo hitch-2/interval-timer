@@ -195,7 +195,6 @@ public class TimeMachineController extends Application {
     }
     
     private void switchToStart() {
-
         startButton.setStyle(
             "-fx-background-color:  #5BBFBA;" +  // Фон кнопки
             "-fx-text-fill: white; " +           // Цвет текста
@@ -204,7 +203,6 @@ public class TimeMachineController extends Application {
             "-fx-border-radius: 5px; " +         // Радиус границы
             "-fx-background-radius: 5px;"        // Радиус фона
         );
-
         startButton.setText("Старт");
 
     }
@@ -229,6 +227,7 @@ public class TimeMachineController extends Application {
         clearTimerInputs(); // Очищаем все поля ввода
         notificationLabel.setText("");
         intervalQueue.clear(); // Очищаем очередь
+        switchToStart();
     }
 
     private void updateTimerLabel(int timeRemaining) {
