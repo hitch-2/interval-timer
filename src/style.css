@@ -1,9 +1,18 @@
 .time_field {
+   -fx-font-size: 60;
    -fx-background-color: transparent;
    -fx-border-color: transparent;
    -fx-focus-color: transparent;
    -fx-faint-focus-color: transparent;
-   -fx-font-size: 25px;
+
    -fx-padding: 0px;
 
+}
+
+#rootPane {
+   -fx-background-color: #F5F5F5
+}
+
+TextField{
+   
 }

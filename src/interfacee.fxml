@@ -14,17 +14,17 @@
     <tabs>
         <Tab text="Таймер">
             <content>
-               <AnchorPane fx:id="rootPane" prefHeight="401.0" prefWidth="617.0" style="-fx-background-color: #F5F5F5">
+               <AnchorPane fx:id="rootPane" prefHeight="401.0" prefWidth="617.0" >
                   
                     <children>
-                        <TextField fx:id="MinuteInput" alignment="CENTER" layoutX="34.0" layoutY="34.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                        <TextField fx:id="MinuteInput" alignment="CENTER" layoutX="34.0" layoutY="34.0" prefHeight="90.0" prefWidth="75.0" promptText="00"  styleClass="time_field">
                      <font>
                         <Font size="25.0" />
                      </font></TextField>
-                        <TextField fx:id="SecondInput" alignment="CENTER" layoutX="106.0" layoutY="34.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                        <TextField fx:id="SecondInput" alignment="CENTER" layoutX="106.0" layoutY="34.0" prefHeight="90.0" prefWidth="75.0" promptText="00"  styleClass="time_field" >
                      <font>
                         <Font size="52.0" />
-                     </font></TextField>
+               </font></TextField>
                         
                         <Button fx:id="startButton" layoutX="39.0" layoutY="132.0" mnemonicParsing="false" onAction="#startTimer" style="-fx-background-color: #5BBFBA; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Старт" />
                         <Button fx:id="resetButton" layoutX="106.0" layoutY="133.0" mnemonicParsing="false" onAction="#resetTimer" style="-fx-background-color: #F7C94C; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Сброс" />
@@ -48,12 +48,12 @@
                         <Font size="40.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="MinuteInput1" alignment="CENTER" layoutX="212.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                  <TextField fx:id="MinuteInput1" alignment="CENTER" layoutX="212.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" >
                      <font>
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="SecondInput1" alignment="CENTER" layoutX="266.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                  <TextField fx:id="SecondInput1" alignment="CENTER" layoutX="266.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" >
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -63,12 +63,12 @@
                         <Font size="40.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="MinuteInput2" alignment="CENTER" layoutX="347.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                  <TextField fx:id="MinuteInput2" alignment="CENTER" layoutX="347.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" >
                      <font>
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="SecondInput2" alignment="CENTER" layoutX="401.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" stylesheets="@style.css">
+                  <TextField fx:id="SecondInput2" alignment="CENTER" layoutX="401.0" layoutY="57.0" prefHeight="36.0" prefWidth="50.0" promptText="00" style="-fx-font-size: 40;" styleClass="time_field" >
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -82,12 +82,12 @@
                   <Pane fx:id="settingsPane" layoutX="28.0" layoutY="226.0" prefHeight="282.0" prefWidth="409.0" style="-fx-background-color: #dedcdc;">
                      <children>
                         <Button fx:id="closeButton" layoutX="100.0" layoutY="237.0" prefHeight="25.0" prefWidth="73.0" text="Закрыть" />
-                        <TextField alignment="CENTER" layoutX="255.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                        <TextField alignment="CENTER" layoutX="255.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" >
                            <font>
                               <Font size="52.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" layoutX="87.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                        <TextField alignment="CENTER" layoutX="87.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" >
                            <font>
                               <Font size="52.0" />
                            </font>
@@ -97,12 +97,12 @@
                               <Font size="40.0" />
                            </font>
                         </Label>
-                        <TextField alignment="CENTER" layoutX="11.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                        <TextField alignment="CENTER" layoutX="11.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" >
                            <font>
                               <Font size="25.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" layoutX="179.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                        <TextField alignment="CENTER" layoutX="179.0" layoutY="63.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" >
                            <font>
                               <Font size="52.0" />
                            </font>
@@ -128,7 +128,7 @@
                            </font>
                         </Label>
                         <Button fx:id="saveButton" layoutX="19.0" layoutY="237.0" text="Сохранить" />
-                        <TextField alignment="CENTER" layoutX="11.0" layoutY="151.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" stylesheets="@style.css">
+                        <TextField alignment="CENTER" layoutX="11.0" layoutY="151.0" prefHeight="90.0" prefWidth="75.0" promptText="00" style="-fx-font-size: 60;" styleClass="time_field" >
                            <font>
                               <Font size="25.0" />
                            </font>
