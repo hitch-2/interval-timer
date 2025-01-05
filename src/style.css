@@ -13,3 +13,17 @@
    -fx-background-color: #F5F5F5
 }
 
+.class40{
+   -fx-background-color: transparent;
+   -fx-border-color: transparent;
+   -fx-focus-color: transparent;
+   -fx-faint-focus-color: transparent;
+   -fx-padding: 0px;
+   -fx-font-size: 40;
+
+}
+
+.signs {
+   -fx-font-size: 40px;        /* Размер шрифта 40 пикселей */
+   -fx-text-fill: #7b848f;     /* Цвет текста */
+}
