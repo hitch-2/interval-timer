@@ -21,6 +21,8 @@ import java.util.TimerTask;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.JComponent;
+
 import java.io.File;
 
 public class TimeMachineController extends Application {
@@ -36,7 +38,7 @@ public class TimeMachineController extends Application {
     private Button startButton, stopButton, resetButton, closeButton, saveButton, settingsButton;
 
     @FXML
-    private Label timerLabel1, notificationLabel;
+    private Label timerLabel1, notificationLabel, arrow1, arrow2, colon2, colon3;
 
     @FXML
     private TextField MinuteInput, SecondInput, MinuteInput1, SecondInput1, MinuteInput2, SecondInput2;
@@ -128,6 +130,7 @@ public class TimeMachineController extends Application {
                                 showNotification("Все таймеры завершены!");
                                 playSound(1);
                                 playSound(2);
+                                switchToStart();
 
 
                             } else if(intervalQueue.size() == 1){
@@ -138,6 +141,7 @@ public class TimeMachineController extends Application {
 
                                 showNotification("Таймер завершен!");
                                 playSound(1);
+                                
 
 
                             } else if (intervalQueue.size() == 2) {
@@ -153,6 +157,7 @@ public class TimeMachineController extends Application {
 
                                 showNotification("Таймер завершен!");
                                 playSound(1);
+                                
 
 
                             }
@@ -272,14 +277,58 @@ public class TimeMachineController extends Application {
         }
     }
 
+    public int added = 0;
+
+    public void add() {
+        if (added == 0) {
+            
+            MinuteInput1.setVisible(true);
+            SecondInput1.setVisible(true);
+            arrow1.setVisible(true);
+            colon2.setVisible(true);
+            showNotification("ок добавил");
+
+        } else if (added == 1){
+            MinuteInput2.setVisible(true);
+            SecondInput2.setVisible(true);
+            arrow2.setVisible(true);
+            colon3.setVisible(true);
+            showNotification("чето дофига");
+
+            
+        }else{
+            showNotification("нельзя больше!");
+        }
+        added++; // Переключаем состояние
+    }
+
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @FXML
     public void initialize() {
+        // Изначально блок настроек скрыт, на будущее как скрывать в fxml: <TextField fx:id="MinuteInput1" visible="false" />
         // Изначально блок настроек скрыт
         settingsPane.setVisible(false);
+
+        // Массив для полей ввода (TextField)
+        TextField[] inputFields = {MinuteInput1, SecondInput1, MinuteInput2, SecondInput2};
+
+        // Массив для меток (Label)
+        Label[] labels = {arrow1, arrow2, colon2, colon3};
+
+        // Скрываем все поля ввода
+        for (TextField input : inputFields) {
+            input.setVisible(false);
+        }
+
+        // Скрываем все метки
+        for (Label label : labels) {
+            label.setVisible(false);
+        }
+
 
         // Открытие блока настроек
         settingsButton.setOnAction(event -> settingsPane.setVisible(true));
