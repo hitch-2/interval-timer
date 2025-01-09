@@ -280,9 +280,64 @@ public class TimeMachineController extends Application {
     public int added = 0;
 
     public void add() {
-        
+        // Массив текста для меток и полей ввода
+        String[] texts = {"00", ":", "00", "←"};
 
-        
+        // Массив начальных координат (top, left) для каждой Label или TextField
+        double[][] positions = {
+            {45.0, 212.0},  // Для первого Label/TextField ("00")
+            {57.5, 260.0},  // Для второго Label (":")
+            {45.0, 266.0},  // Для третьего Label/TextField ("00")
+            {49.0, 181.0}   // Для четвёртого Label ("←")
+        };
+
+        // Начальная смещение по оси X (первоначальное положение)
+        double offsetX = 0;
+
+        // Номер блока, для генерации уникальных ID
+        int blockNumber = 1;
+
+        // Создание и добавление Label или TextField в контейнер
+        for (int i = 0; i < texts.length; i++) {
+            String elementId = texts[i] + blockNumber; // Генерация уникального ID
+
+            if (texts[i].equals("00")) {
+                // Создаём TextField для "00"
+                TextField textField = new TextField();
+                textField.setPromptText("00");
+
+                textField.setAlignment(Pos.CENTER);
+                textField.setPrefHeight(90.0);
+                textField.setPrefWidth(75.0);
+                textField.setMaxWidth(50); // Максимальная ширина для TextField
+                textField.getStyleClass().add("class40"); // Применяем стиль для TextField
+
+                // Устанавливаем уникальный ID
+                textField.setId("textField" + elementId);
+
+                // Устанавливаем позицию TextField с учетом смещения по оси X
+                AnchorPane.setTopAnchor(textField, positions[i][0]);
+                AnchorPane.setLeftAnchor(textField, positions[i][1] + offsetX);
+                rootPane.getChildren().add(textField); // Добавляем в AnchorPane
+            } else {
+                // Создаём обычный Label для других элементов
+                Label label = new Label(texts[i]);
+                label.getStyleClass().add("signs"); // Применяем стиль для Label
+
+                // Устанавливаем уникальный ID
+                label.setId("label" + elementId);
+
+                // Устанавливаем позицию Label с учетом смещения по оси X
+                AnchorPane.setTopAnchor(label, positions[i][0]);
+                AnchorPane.setLeftAnchor(label, positions[i][1] + offsetX);
+                rootPane.getChildren().add(label); // Добавляем Label в AnchorPane
+            }
+
+            // Если это последний элемент в блоке, увеличиваем смещение по оси X для следующего блока
+            if (i == texts.length - 1) {
+                offsetX += 100;  // Сдвиг блока на 100 пикселей вправо для следующего блока
+            }
+        }
     }
 
 
