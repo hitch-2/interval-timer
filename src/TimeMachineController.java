@@ -65,13 +65,7 @@ public class TimeMachineController extends Application {
             // Если таймер не запущен, запускаем первый из очереди
             if (!isTimerRunning) {
                 // Считываем значения из первого таймера
-                getIntervalDuration(MinuteInput, SecondInput);
-           
-                // Считываем значения из второго таймера
-                // getIntervalDuration(MinuteInput1, SecondInput1);
-            
-                // // Считываем значения из третьего таймера
-                // getIntervalDuration(MinuteInput2, SecondInput2);
+                processAllTimers(rootPane, intervalQueue);
 
                 startNextTimer();
             }
@@ -83,6 +77,30 @@ public class TimeMachineController extends Application {
         } catch (NumberFormatException e) {
             showNotification("Некорректный ввод! Введите число.");
         }   
+    }
+
+    private void processAllTimers(AnchorPane rootPane, Queue<Integer> intervalQueue) {
+        // Максимальное количество таймеров
+        int maxTimers = 10;
+    
+        for (int i = 1; i <= maxTimers; i++) {
+            // Формируем ID для минутного и секундного текстового поля
+            String minuteId = "MinuteInput-" + i;
+            String secondId = "SecondInput-" + i;
+    
+            // Ищем текстовые поля по ID
+            TextField minuteInput = (TextField) rootPane.lookup("#" + minuteId);
+            TextField secondInput = (TextField) rootPane.lookup("#" + secondId);
+    
+            // Проверяем, существует ли таймер (текстовые поля могут быть не созданы)
+            if (minuteInput != null && secondInput != null) {
+                // Считаем продолжительность интервала для текущего таймера
+                int duration = getIntervalDuration(minuteInput, secondInput);
+    
+                // Выводим продолжительность (для проверки, можно убрать)
+                System.out.println("Timer " + i + ": " + duration + " seconds");
+            }
+        }
     }
 
     private int getIntervalDuration(TextField minuteInput, TextField secondInput) {
@@ -125,48 +143,24 @@ public class TimeMachineController extends Application {
 
                         Platform.runLater(() -> {
                             if (intervalQueue.isEmpty()) {
-                                // Если нет следующего таймера, очищаем все поля
-                                clearTimerInputs();
+                                // Если все таймеры завершены, очищаем все поля
+                                clearTimerInputs(); // Метод для очистки всех TextField
                                 showNotification("Все таймеры завершены!");
                                 playSound(1);
                                 playSound(2);
                                 switchToStart();
-
-
-                            } else if(intervalQueue.size() == 1){
-                                startNextTimer();
-
-                                // MinuteInput1.clear();
-                                // SecondInput1.clear();
-
-                                showNotification("Таймер завершен!");
-                                playSound(1);
-                                
-
-
-                            } else if (intervalQueue.size() == 2) {
-                                startNextTimer();
-                                
-                                // Перемещаем значения из третьего поля во второе
-                                // MinuteInput1.setText(MinuteInput2.getText());
-                                // SecondInput1.setText(SecondInput2.getText());
-                                
-                                // Очищаем третье поле
-                                // MinuteInput2.clear();
-                                // SecondInput2.clear();
-
-                                showNotification("Таймер завершен!");
-                                playSound(1);
-                                
-
-
-                            }
-                            
-                            else {
+                            } else {
                                 // Запускаем следующий таймер
                                 startNextTimer();
+                        
+                                // Сдвигаем значения текстовых полей
+                                shiftTimerInputs();
+                        
+                                showNotification("Таймер завершен!");
+                                playSound(1);
                             }
                         });
+                        
                     }
                 }
             };
@@ -174,6 +168,35 @@ public class TimeMachineController extends Application {
             timer.scheduleAtFixedRate(task, 0, 1000);
         }
     }
+
+    private void shiftTimerInputs() {
+        int maxTimers = 10;
+    
+        for (int i = 1; i < maxTimers; i++) {
+            // Ищем текстовые поля для текущего и следующего таймера
+            TextField currentMinuteInput = (TextField) rootPane.lookup("#MinuteInput-" + i);
+            TextField currentSecondInput = (TextField) rootPane.lookup("#SecondInput-" + i);
+    
+            TextField nextMinuteInput = (TextField) rootPane.lookup("#MinuteInput-" + (i + 1));
+            TextField nextSecondInput = (TextField) rootPane.lookup("#SecondInput-" + (i + 1));
+    
+            if (currentMinuteInput != null && currentSecondInput != null &&
+                nextMinuteInput != null && nextSecondInput != null) {
+                // Сдвигаем значения из следующего таймера в текущий
+                currentMinuteInput.setText(nextMinuteInput.getText());
+                currentSecondInput.setText(nextSecondInput.getText());
+            }
+        }
+    
+        // Очищаем последний таймер (максимальный номер)
+        TextField lastMinuteInput = (TextField) rootPane.lookup("#MinuteInput-" + maxTimers);
+        TextField lastSecondInput = (TextField) rootPane.lookup("#SecondInput-" + maxTimers);
+    
+        if (lastMinuteInput != null && lastSecondInput != null) {
+            lastMinuteInput.clear();
+            lastSecondInput.clear();
+        }
+    }    
 
     private void clearTimerInputs() {
         MinuteInput.clear();
@@ -282,7 +305,18 @@ public class TimeMachineController extends Application {
     // Значение сдвига
     double shift = 0.0;
 
+    // Номер блока, для генерации уникальных ID
+    int blockNumber = 1;
+
+    int toggle = 0;
+
     public void add() {
+
+        if (blockNumber == 10) {
+            showNotification("ограничение в 10 таимеров");
+            return; // Завершаем выполнение метода
+        }
+
         String[] texts = {"00", ":", "00", "←"};  // Стрелка "←" и "00" как текстовые поля
         // Массив координат (top, left) для каждой Label или TextField
         double[][] positions = {
@@ -293,16 +327,17 @@ public class TimeMachineController extends Application {
         };
 
 
-
         // Добавляем сдвиг к координатам
         for (int i = 0; i < positions.length; i++) {
             positions[i][1] += shift; // Увеличиваем x-координату
         }
 
         shift = shift + 150.0;
+        blockNumber++; // Генерация уникального ID
 
         // Создание и добавление Label или TextField в контейнер
         for (int i = 0; i < texts.length; i++) {
+
             if (texts[i].equals("00")) {
                 // Создаём TextField для "00"
                 TextField textField = new TextField();
@@ -313,6 +348,17 @@ public class TimeMachineController extends Application {
                 textField.setPrefWidth(75.0);
                 textField.setMaxWidth(50); // Максимальная ширина для TextField
 
+                
+                if (toggle == 0) {
+                    textField.setId("MinuteInput-" + blockNumber);
+                    System.out.println("MinuteInput-" + blockNumber); //удалить!!
+                    toggle++;
+                } else {
+                    textField.setId("SecondInput-" + blockNumber);
+                    System.out.println("SecondInput-" + blockNumber); //удалить!!
+                    toggle--;
+                }
+                
 
                 textField.getStyleClass().add("class40"); // Применяем стиль для TextField
 
@@ -320,11 +366,21 @@ public class TimeMachineController extends Application {
                 AnchorPane.setTopAnchor(textField, positions[i][0]);
                 AnchorPane.setLeftAnchor(textField, positions[i][1]);
                 rootPane.getChildren().add(textField); // Добавляем в AnchorPane
+                
             } else {
 
                 // Создаём обычный Label для других элементов
                 Label label = new Label(texts[i]);
                 label.getStyleClass().add("signs"); // Применяем стиль для Label
+                if(texts[i].equals(":")){
+                    label.setId("colon-" + blockNumber);
+                    System.out.println("colon-" + blockNumber); // удалить!!
+                } else {
+                    label.setId("arrow-" + blockNumber);
+                    System.out.println("arrow-" + blockNumber); // удалить!!
+                }
+
+
                 // Устанавливаем позицию Label
                 AnchorPane.setTopAnchor(label, positions[i][0]);
                 AnchorPane.setLeftAnchor(label, positions[i][1]);
