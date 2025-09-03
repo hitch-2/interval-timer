@@ -61,9 +61,11 @@ public class TimeMachineController extends Application {
 
     @FXML
     private void startTimer(ActionEvent event) {
+        System.out.println("1");
         try {
             // Если таймер не запущен, запускаем первый из очереди
             if (!isTimerRunning) {
+                System.out.println("2");
                 // Считываем значения из первого таймера
                 processAllTimers(rootPane, intervalQueue);
 
@@ -82,7 +84,9 @@ public class TimeMachineController extends Application {
     private void processAllTimers(AnchorPane rootPane, Queue<Integer> intervalQueue) {
         // Максимальное количество таймеров
         int maxTimers = 10;
-    
+
+        System.out.println("3");
+
         for (int i = 1; i <= maxTimers; i++) {
             // Формируем ID для минутного и секундного текстового поля
             String minuteId = "MinuteInput-" + i;
@@ -121,10 +125,12 @@ public class TimeMachineController extends Application {
     }
 
     private void startNextTimer() {
+        System.out.println("4");
+        System.out.println(intervalQueue);
         if (!intervalQueue.isEmpty()) {
+            System.out.println("5");
             isTimerRunning = true;
             timeRemaining = intervalQueue.poll(); // Получаем таймер из очереди
-
             switchToStop();
 
             timer = new Timer();
