@@ -87,6 +87,11 @@ public class TimeMachineController extends Application {
 
         System.out.println("3");
 
+        //! костыль удалить или исправить
+        if (MinuteInput != null && SecondInput != null) {
+        getIntervalDuration(MinuteInput, SecondInput);
+        }
+
         for (int i = 1; i <= maxTimers; i++) {
             // Формируем ID для минутного и секундного текстового поля
             String minuteId = "MinuteInput-" + i;
@@ -127,8 +132,10 @@ public class TimeMachineController extends Application {
     private void startNextTimer() {
         System.out.println("4");
         System.out.println(intervalQueue);
+
         if (!intervalQueue.isEmpty()) {
             System.out.println("5");
+            
             isTimerRunning = true;
             timeRemaining = intervalQueue.poll(); // Получаем таймер из очереди
             switchToStop();
